@@ -10,6 +10,8 @@ def fetchUserInfo(uid=None):
       return 'User Id must be a string'
     r = requests.get(url='https://api.github.com/users/'+uid+'/repos')
     repos = r.json()
+    if not isinstance(repos, list):
+        return []
     strings = []
     for repo in repos:
         cr = requests.get(url='https://api.github.com/repos/'+uid+'/'+repo['name']+'/commits')
